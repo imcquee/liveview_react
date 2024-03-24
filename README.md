@@ -1,4 +1,4 @@
-# Phoenix Liveview + React 18 + Antd
+# Phoenix Liveview + React 18 + Shadcn
 
 ![Lazy loading component](./preview.png)
 

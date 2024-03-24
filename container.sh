@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-IMAGE=lv_react_antd:local
+IMAGE=lv_react_shadcn:local
 docker build -t $IMAGE .
 
 SECRET_KEY_BASE=$(mix phx.gen.secret)

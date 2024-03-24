@@ -1,24 +1,29 @@
 import React from "react";
-import { Table } from "antd";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from "@/components/ui/data-table";
 
 export default function EmployeeList({ items }: { items: any }) {
-  const columns = [
+  type Payment = {
+    id: string;
+    name: string;
+    age: number;
+    address: string;
+  };
+
+  const columns: ColumnDef<Payment>[] = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      accessorKey: "name",
+      header: "Name",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      accessorKey: "age",
+      header: "Age",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      accessorKey: "address",
+      header: "Address",
     },
   ];
 
-  return <Table bordered dataSource={items || []} columns={columns} />;
+  return <DataTable columns={columns} data={items || []} />;
 }

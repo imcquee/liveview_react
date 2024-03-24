@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import EmployeeForm from "./EmployeeForm";
-import { Button, Form, Modal } from "antd";
+import { Button } from "@/components/ui/button";
 import EmployeeList from "./EmployeeList";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Form, useForm } from "react-hook-form";
 
 export interface EmployeeProps {
   items: any;
@@ -11,18 +18,7 @@ export interface EmployeeProps {
 export default function Employee({ items, dispatch }: EmployeeProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [form] = Form.useForm();
-
-  const showModal = () => {
-    setConfirmLoading(false);
-    form.resetFields();
-    setIsOpen(true);
-  };
-
-  const handleCancel = () => {
-    form.resetFields();
-    setIsOpen(false);
-  };
+  const form = useForm();
 
   const onEmployeeFormSubmit = async (values: any) => {
     setConfirmLoading(true);
@@ -35,24 +31,21 @@ export default function Employee({ items, dispatch }: EmployeeProps) {
 
   return (
     <>
-      <Button type="primary" onClick={() => showModal()}>
-        Add Employee
-      </Button>
-
       <EmployeeList items={items} />
 
-      <Modal
-        width={800}
-        title="Employee Form"
-        open={isOpen}
-        onOk={form.submit}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        destroyOnClose={true}
-        maskClosable={false}
-      >
-        <EmployeeForm form={form} onFinish={onEmployeeFormSubmit} />
-      </Modal>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <Button>Add Employee</Button>
+        </DialogTrigger>
+        <DialogContent>
+          <EmployeeForm onFinish={onEmployeeFormSubmit} />
+          {/* <DialogFooter>
+            <Button type="submit" onClick={form.}>
+              Save changes
+            </Button>
+          </DialogFooter> */}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
