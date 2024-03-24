@@ -1,5 +1,5 @@
 defmodule LvReactWeb.Router do
-  alias LvReactWeb.React
+  # alias LvReactWeb.React
   use LvReactWeb, :router
 
   pipeline :browser do
